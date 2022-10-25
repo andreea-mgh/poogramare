@@ -288,8 +288,24 @@ class Roman {
             this->value = this->value + rhs.value;
             return *this;
         }
+        const Roman operator+=(const char* rhs) {
+            this->value = this->value + rom_to_int(rhs);
+            return *this;
+        }
+        const Roman operator+=(int rhs) {
+            this->value = this->value + rhs;
+            return *this;
+        }
         const Roman operator-=(const Roman &rhs) {
             this->value = this->value - rhs.value;
+            return *this;
+        }
+        const Roman operator-=(const char* rhs) {
+            this->value = this->value - rom_to_int(rhs);
+            return *this;
+        }
+        const Roman operator-=(int rhs) {
+            this->value = this->value - rhs;
             return *this;
         }
         
@@ -299,13 +315,12 @@ class Roman {
 };
 
 int main() {
-    Roman r1(17); //XVII
+    Roman r1(17);      //XVII
     Roman r2("CXLIX"); // 149
 
-    //cout << int_to_rom(149) << endl;
-
-    r1 += Roman("LVII"); // 74 (LXXIV)
-    r2 -= r1; // 132 (CXXXII)
+    //r1 += Roman("LVII"); 
+    r1 += "LVII"; // 74 (LXXIV)
+    r2 -= r1;     // 75 (LXXV)
     
     r1.afisare();
     r2.afisare();

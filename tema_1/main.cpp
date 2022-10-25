@@ -284,6 +284,13 @@ class Roman {
             return int_to_rom(this->value);
         }
 
+        void setRoman(const char* rom) {
+            this->value = rom_to_int(rom);
+        }
+        void setValue(int val) {
+            this->value = val;
+        }
+
         const Roman operator+=(const Roman &rhs) {
             this->value = this->value + rhs.value;
             return *this;
@@ -324,5 +331,11 @@ int main() {
     
     r1.afisare();
     r2.afisare();
+
+    r2.setRoman("CCXLI"); // 241
+
+    r1.afisare();
+    r2.afisare();
+
     return 0;
 }

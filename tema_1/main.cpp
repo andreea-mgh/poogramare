@@ -7,9 +7,9 @@ class Roman {
     private:
         int value;
 
-        const char* int_to_rom(int val) { //TODO baga la string
+        const char* int_to_rom(int val) {
             int len = 0;
-            int result[16];
+            char result[16];
             
             while(val>1000) {
                 result[len]='M';
@@ -82,44 +82,44 @@ class Roman {
             case 1:
                 result[len]='X';
                 len++;
-                val%=100;
+                val%=10;
                 break;
             case 2:
                 result[len]  ='X';
                 result[len+1]='X';
                 len+=2;
-                val%=100;
+                val%=10;
                 break;
             case 3:
                 result[len]  ='X';
                 result[len+1]='X';
                 result[len+2]='X';
                 len+=3;
-                val%=100;
+                val%=10;
                 break;
             case 4:
                 result[len]  ='X';
                 result[len+1]='L';
                 len+=2;
-                val%=100;
+                val%=10;
                 break;
             case 5:
                 result[len]='L';
                 len++;
-                val%=100;
+                val%=10;
                 break;
             case 6:
                 result[len]='L';
                 result[len+1]='X';
                 len+=2;
-                val%=100;
+                val%=10;
                 break;
             case 7:
                 result[len]='L';
                 result[len+1]='X';
                 result[len+2]='X';
                 len+=3;
-                val%=100;
+                val%=10;
                 break;
             case 8:
                 result[len]='L';
@@ -127,13 +127,13 @@ class Roman {
                 result[len+2]='X';
                 result[len+3]='X';
                 len+=4;
-                val%=100;
+                val%=10;
                 break;
             case 9:
                 result[len]='X';
                 result[len+1]='C';
                 len+=2;
-                val%=100;
+                val%=10;
                 break;
             default:
                 break;
@@ -143,44 +143,37 @@ class Roman {
             case 1:
                 result[len]='I';
                 len++;
-                val%=100;
                 break;
             case 2:
                 result[len]  ='I';
                 result[len+1]='I';
                 len+=2;
-                val%=100;
                 break;
             case 3:
                 result[len]  ='I';
                 result[len+1]='I';
                 result[len+2]='I';
                 len+=3;
-                val%=100;
                 break;
             case 4:
                 result[len]  ='I';
                 result[len+1]='V';
                 len+=2;
-                val%=100;
                 break;
             case 5:
                 result[len]='V';
                 len++;
-                val%=100;
                 break;
             case 6:
                 result[len]='V';
                 result[len+1]='I';
                 len+=2;
-                val%=100;
                 break;
             case 7:
                 result[len]='V';
                 result[len+1]='I';
                 result[len+2]='I';
                 len+=3;
-                val%=100;
                 break;
             case 8:
                 result[len]='V';
@@ -188,32 +181,36 @@ class Roman {
                 result[len+2]='I';
                 result[len+3]='I';
                 len+=4;
-                val%=100;
                 break;
             case 9:
                 result[len]='I';
                 result[len+1]='X';
                 len+=2;
-                val%=100;
                 break;
             default:
                 break;
             }
             char* rom = (char*)malloc(len*sizeof(char*));
             //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            strcpy(rom, result);
             return rom;
         }
         const int rom_to_int(const char* rom) {
             int len = strlen(rom);
             int val = 0;
             for(int i=0; i<len; i++) {
+                //M
                 if(rom[i] == 'M' || rom[i] == 'm') {
                     val += 1000;
                 }
+
+                //D
                 else if(rom[i] == 'D' || rom[i] == 'd') {
                     val += 500;
                 }
-                else if(rom[i] == 'X' || rom[i] == 'c') {
+
+                //C
+                else if(rom[i] == 'C' || rom[i] == 'c') {
                     if(i!=len-1) 
                         if(rom[i+1] == 'M' || rom[i+1] == 'm') {
                             val += 900;
@@ -226,9 +223,13 @@ class Roman {
                         else val += 100;
                     else val += 100;
                 }
+
+                //L
                 else if(rom[i] == 'L' || rom[i] == 'l') {
                     val += 50;
                 }
+
+                //X
                 else if(rom[i] == 'X' || rom[i] == 'x') {
                     if(i!=len-1) 
                         if(rom[i+1] == 'C' || rom[i+1] == 'c') {
@@ -242,9 +243,13 @@ class Roman {
                         else val += 10;
                     else val += 10;
                 }
+
+                //V
                 else if(rom[i] == 'V' || rom[i] == 'v') {
                     val += 5;
                 }
+
+                //I
                 else if(rom[i] == 'I' || rom[i] == 'i') {
                     if(i!=len-1) 
                         if(rom[i+1] == 'X' || rom[i+1] == 'x') {
@@ -267,17 +272,25 @@ class Roman {
             value = value_;
         }
         Roman(const char* numeral_) {
-            value = rom_to_int(numeral_);
+            this->value = rom_to_int(numeral_);
         }
+        
+        int getValue() {
+            return this->value;
+        }
+        
         void afisare() {
-            cout << "nu" << endl;
+            cout << int_to_rom(this->value) << endl;
         }
 };
 
 int main() {
-    Roman r1(17);
+    Roman r1(17); //XVII
     Roman r2("CXLIX"); // 149
 
+    //cout << int_to_rom(149) << endl;
+    //cout<<r2.getValue()<<endl;
+    
     r1.afisare();
     r2.afisare();
     return 0;

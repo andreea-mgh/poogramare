@@ -191,7 +191,6 @@ class Roman {
                 break;
             }
             char* rom = (char*)malloc(len*sizeof(char*));
-            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             strcpy(rom, result);
             return rom;
         }
@@ -274,9 +273,24 @@ class Roman {
         Roman(const char* numeral_) {
             this->value = rom_to_int(numeral_);
         }
+        Roman(const Roman &r) {
+            this->value = r.value;
+        }
         
         int getValue() {
             return this->value;
+        }
+        const char* getRoman() {
+            return int_to_rom(this->value);
+        }
+
+        const Roman operator+=(const Roman &rhs) {
+            this->value = this->value + rhs.value;
+            return *this;
+        }
+        const Roman operator-=(const Roman &rhs) {
+            this->value = this->value - rhs.value;
+            return *this;
         }
         
         void afisare() {
@@ -289,7 +303,9 @@ int main() {
     Roman r2("CXLIX"); // 149
 
     //cout << int_to_rom(149) << endl;
-    //cout<<r2.getValue()<<endl;
+
+    r1 += Roman("LVII"); // 74 (LXXIV)
+    r2 -= r1; // 132 (CXXXII)
     
     r1.afisare();
     r2.afisare();

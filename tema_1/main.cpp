@@ -6,6 +6,7 @@ using namespace std;
 class Roman {
     private:
         int value;
+        char* numeral;
 
         const char* int_to_rom(int val) {
             int len = 0;
@@ -267,63 +268,82 @@ class Roman {
         }
 
     public:
-        Roman(int value_) {
-            value = value_;
+        Roman(int value) {
+            this->value = value;
+
+            const char* result = int_to_rom(value);
+            this->numeral = new char[strlen(result)+1];
+            strcpy(this->numeral, result);
         }
-        Roman(const char* numeral_) {
-            this->value = rom_to_int(numeral_);
+        Roman(const char* numeral) {
+            this->value = rom_to_int(numeral);
+            
+            this->numeral = new char[strlen(numeral)+1];
+            strcpy(this->numeral, numeral);
         }
         Roman(const Roman &r) {
             this->value = r.value;
+
+            this->numeral = new char[strlen(r.numeral)+1];
+            strcpy(this->numeral, r.numeral);
         }
         
         int getValue() {
             return this->value;
         }
         const char* getRoman() {
-            return int_to_rom(this->value);
+            return this->numeral;
         }
 
         void setRoman(const char* rom) {
             this->value = rom_to_int(rom);
+            strcpy(this->numeral, rom);
         }
         void setValue(int val) {
             this->value = val;
+            strcpy(this->numeral, int_to_rom(val));
         }
 
         const Roman operator+=(const Roman &rhs) {
             this->value = this->value + rhs.value;
+            strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
         const Roman operator+=(const char* rhs) {
             this->value = this->value + rom_to_int(rhs);
+            strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
         const Roman operator+=(int rhs) {
             this->value = this->value + rhs;
+            strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
         const Roman operator-=(const Roman &rhs) {
             this->value = this->value - rhs.value;
+            strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
         const Roman operator-=(const char* rhs) {
             this->value = this->value - rom_to_int(rhs);
+            strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
         const Roman operator-=(int rhs) {
             this->value = this->value - rhs;
+            strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
         
         void afisare() {
-            cout << int_to_rom(this->value) << endl;
+            cout << this->numeral << endl;
         }
 };
 
 int main() {
     Roman r1(17);      //XVII
     Roman r2("CXLIX"); // 149
+    Roman r3(r2);
 
     //r1 += Roman("LVII"); 
     r1 += "LVII"; // 74 (LXXIV)

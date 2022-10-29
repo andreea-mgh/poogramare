@@ -287,6 +287,10 @@ class Roman {
             this->numeral = new char[strlen(r.numeral)+1];
             strcpy(this->numeral, r.numeral);
         }
+
+        ~Roman() {
+            delete[] numeral;
+        }
         
         int getValue() {
             return this->value;
@@ -300,39 +304,53 @@ class Roman {
             strcpy(this->numeral, rom);
         }
         void setValue(int val) {
-            this->value = val;
+            this->value = val; 
             strcpy(this->numeral, int_to_rom(val));
         }
 
-        const Roman operator+=(const Roman &rhs) {
+        Roman operator+=(Roman &rhs) {
             this->value = this->value + rhs.value;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        const Roman operator+=(const char* rhs) {
+        Roman operator+=(const char* rhs) {
             this->value = this->value + rom_to_int(rhs);
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        const Roman operator+=(int rhs) {
+        Roman operator+=(int rhs) {
             this->value = this->value + rhs;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        const Roman operator-=(const Roman &rhs) {
+        Roman operator-=(Roman &rhs) {
             this->value = this->value - rhs.value;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        const Roman operator-=(const char* rhs) {
+        Roman operator-=(const char* rhs) {
             this->value = this->value - rom_to_int(rhs);
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        const Roman operator-=(int rhs) {
+        Roman operator-=(int rhs) {
             this->value = this->value - rhs;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
+        }
+
+        Roman& operator=(const Roman &rhs) {
+            if(this != &rhs) {
+                setValue(rhs.value);
+            }
+            return *this;
+        }
+
+        bool operator==(const Roman &rhs) const {
+            return this->value == rhs.value;
+        }
+        bool operator==(const Roman &rhs) const {
+            return this->value != rhs.value;
         }
         
         void afisare() {

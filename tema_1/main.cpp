@@ -268,6 +268,9 @@ class Roman {
         }
 
     public:
+        Roman() {
+            value = 0;
+        }
         Roman(int value) {
             this->value = value;
 
@@ -349,31 +352,79 @@ class Roman {
         bool operator==(const Roman &rhs) const {
             return this->value == rhs.value;
         }
-        bool operator==(const Roman &rhs) const {
+        bool operator!=(const Roman &rhs) const {
             return this->value != rhs.value;
         }
         
         void afisare() {
             cout << this->numeral << endl;
         }
+
+        friend std::istream& operator>>(std::istream &is, Roman &s) {
+
+            char buf[100];
+            is >> buf;
+            s.setRoman(buf);
+
+            return is;
+        }
+        friend std::ostream& operator<<(std::ostream &os, Roman &s) {
+            // if (!s.name) {
+            //     os << "Not initialized\n";
+            //     return os;
+            // }
+
+            os << s.getRoman() << '\n';
+
+            return os;
+        }
 };
 
 int main() {
-    Roman r1(17);      //XVII
-    Roman r2("CXLIX"); // 149
-    Roman r3(r2);
+    int n;
+    Roman* r;
 
-    //r1 += Roman("LVII"); 
-    r1 += "LVII"; // 74 (LXXIV)
-    r2 -= r1;     // 75 (LXXV)
-    
-    r1.afisare();
-    r2.afisare();
+    std::cout << "Câte numere vrei să citești?" <<endl;
+    std::cin>>n;
 
-    r2.setRoman("CCXLI"); // 241
+    r = new Roman[n];
 
-    r1.afisare();
-    r2.afisare();
+    for(int i=0; i<n; i++) {
+        std::cin >> r[i];
+    }
+
+    char *input;
+    while(true) {
+        input = new char[100];
+        cin >> input;
+        if(!strcmp(input, "exit")) {
+            break;
+        } /*
+        else if(!strcmp(input, "exit")) {
+            ;
+        }
+        else if(!strcmp(input, "exit")) {
+            ;
+        }
+        else if(!strcmp(input, "exit")) {
+            ;
+        }
+        else if(!strcmp(input, "exit")) {
+            ;
+        }
+        else if(!strcmp(input, "exit")) {
+            ;
+        }
+        else if(!strcmp(input, "exit")) {
+            ;
+        }
+        else if(!strcmp(input, "exit")) {
+            ;
+        } */
+        
+    }
+
+    cout << "e" << endl;
 
     return 0;
 }

@@ -8,7 +8,7 @@ class Roman {
         int value;
         char* numeral;
 
-        const char* int_to_rom(int val) {
+        char* int_to_rom(int val) {
             int len = 0;
             char result[16];
             
@@ -195,7 +195,7 @@ class Roman {
             strcpy(rom, result);
             return rom;
         }
-        const int rom_to_int(const char* rom) {
+        int rom_to_int(const char* rom) {
             int len = strlen(rom);
             int val = 0;
             for(int i=0; i<len; i++) {
@@ -295,10 +295,10 @@ class Roman {
             delete[] numeral;
         }
         
-        int getValue() {
+        int getValue() const {
             return this->value;
         }
-        const char* getRoman() {
+        char* getRoman() const {
             return this->numeral;
         }
 
@@ -307,14 +307,14 @@ class Roman {
             this->numeral = new char[strlen(rom)];
             for(int i=0; i<strlen(rom); i++) this->numeral[i]=toupper(rom[i]);
         }
-        void setValue(int val) {
+        void setValue(const int val) {
             this->value = val;
             const char* rom = int_to_rom(val);
             this->numeral = new char[strlen(rom)];
             strcpy(this->numeral, rom);
         }
 
-        Roman operator+=(Roman &rhs) {
+        Roman operator+=(const Roman &rhs) {
             this->value = this->value + rhs.value;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
@@ -324,12 +324,12 @@ class Roman {
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        Roman operator+=(int rhs) {
+        Roman operator+=(const int rhs) {
             this->value = this->value + rhs;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        Roman operator-=(Roman &rhs) {
+        Roman operator-=(const Roman &rhs) {
             this->value = this->value - rhs.value;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
@@ -339,7 +339,7 @@ class Roman {
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
         }
-        Roman operator-=(int rhs) {
+        Roman operator-=(const int rhs) {
             this->value = this->value - rhs;
             strcpy(this->numeral, int_to_rom(this->value));
             return *this;
@@ -392,7 +392,6 @@ int main() {
         std::cin >> r[i];
     }
 
-    char *input;
     while(true) {
         std::cout << endl
         << "1: afișare" << endl
@@ -419,7 +418,7 @@ int main() {
             std::cout<<"numere: "; std::cin>>a>>b;
             if(b>n || a>b || a<1) std::cout<<"nu se poate face modificarea"<<endl;
             else for(int i=a-1; i<b; i++) {
-                std::cout<<"valoare nouă pentru numărul "<<i<<": ";
+                std::cout<<"valoare nouă pentru numărul "<<i+1<<": ";
                 std::cin>>r[i];
             }
         }

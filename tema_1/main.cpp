@@ -394,9 +394,11 @@ int main() {
     while(true) {
         std::cout << "1: afișare" << endl
         << "2: modificare" << endl
-        << "3: adăugare" << endl
-        << "4: ștergere" << endl
-        << "5: ieșire" << endl
+        << "3: adăugare element" << endl
+        << "4: ștergere element" << endl
+        << "5: adunare" << endl
+        << "6: scădere" << endl
+        << "7: ieșire" << endl
         << "> ";
 
         int input;
@@ -408,7 +410,31 @@ int main() {
                 r[i].afisare();
             }
         }
+        else if(input==2) {
+            int a, b;
+            std::cout<<"numere: "; std::cin>>a>>b;
+            for(int i=a-1; i<b; i++) {
+                std::cout<<"valoare nouă pentru numărul "<<i<<": ";
+                std::cin>>r[i];
+            }
+        }
         else if(input==5) {
+            int a;
+            Roman rom;
+            std::cout<<"număr: "; std::cin>>a;
+            std::cout<<r[a-1]<< " + ";
+            std::cin>>rom;
+            r[a-1]+=rom;
+        }
+        else if(input==6) {
+            int a;
+            Roman rom;
+            std::cout<<"număr: "; std::cin>>a;
+            std::cout<<r[a-1]<< " - ";
+            std::cin>>rom;
+            r[a-1]-=rom;
+        }
+        else if(input==7) {
             break;
         }
     }

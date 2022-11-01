@@ -308,8 +308,10 @@ class Roman {
             for(int i=0; i<strlen(rom); i++) this->numeral[i]=toupper(rom[i]);
         }
         void setValue(int val) {
-            this->value = val; 
-            strcpy(this->numeral, int_to_rom(val));
+            this->value = val;
+            const char* rom = int_to_rom(val);
+            this->numeral = new char[strlen(rom)];
+            strcpy(this->numeral, rom);
         }
 
         Roman operator+=(Roman &rhs) {
@@ -392,7 +394,8 @@ int main() {
 
     char *input;
     while(true) {
-        std::cout << "1: afișare" << endl
+        std::cout << endl
+        << "1: afișare" << endl
         << "2: modificare" << endl
         << "3: adăugare element" << endl
         << "4: ștergere element" << endl
@@ -406,33 +409,76 @@ int main() {
         if(input==1) {
             int a, b;
             std::cout<<"numere: "; std::cin>>a>>b;
-            for(int i=a-1; i<b; i++) {
-                r[i].afisare();
+            if(b>n || a>b || a<1) std::cout<<"nu se poate face afișarea"<<endl;
+            else for(int i=a-1; i<b; i++) {
+                std::cout<<r[i]<<endl;
             }
         }
         else if(input==2) {
             int a, b;
             std::cout<<"numere: "; std::cin>>a>>b;
-            for(int i=a-1; i<b; i++) {
+            if(b>n || a>b || a<1) std::cout<<"nu se poate face modificarea"<<endl;
+            else for(int i=a-1; i<b; i++) {
                 std::cout<<"valoare nouă pentru numărul "<<i<<": ";
                 std::cin>>r[i];
             }
         }
+        else if(input==3) {
+            int a;
+            Roman r_ins;
+            std::cout<<"după elementul: "; std::cin>>a;
+            std::cout<<"element inserat: "; std::cin>>r_ins;
+
+            if(a<1 || a>n) std::cout<<"poziția nu se află în listă";
+            else {
+                Roman* r_aux;
+                r_aux = new Roman[n+1];
+                for(int i=0; i<a; i++) r_aux[i] = r[i];
+                r_aux[a] = r_ins;
+                for(int i=a+1; i<=n; i++) r_aux[i] = r[i-1];
+
+                delete[] r;
+                r = r_aux;
+                n++;
+            }
+        }
+        else if(input==4) {
+            int a;
+            std::cout<<"elementul: "; std::cin>>a;
+
+            if(a<1 || a>n) std::cout<<"poziția nu se află în listă";
+            else {
+                Roman* r_aux;
+                r_aux = new Roman[n-1];
+                for(int i=0; i<a-1; i++) r_aux[i] = r[i];
+                for(int i=a-1; i<n-1; i++) r_aux[i] = r[i+1];
+
+                delete[] r;
+                r = r_aux;
+                n--;
+            }
+        }
         else if(input==5) {
             int a;
-            Roman rom;
             std::cout<<"număr: "; std::cin>>a;
-            std::cout<<r[a-1]<< " + ";
-            std::cin>>rom;
-            r[a-1]+=rom;
+            if(a<1 || a>n) std::cout<<"poziția nu se află în listă";
+            else {
+                std::cout<<r[a-1]<< " + ";
+                Roman rom;
+                std::cin>>rom;
+                r[a-1]+=rom;
+            }
         }
         else if(input==6) {
             int a;
-            Roman rom;
             std::cout<<"număr: "; std::cin>>a;
-            std::cout<<r[a-1]<< " - ";
-            std::cin>>rom;
-            r[a-1]-=rom;
+            if(a<1 || a>n) std::cout<<"poziția nu se află în listă";
+            else {
+                std::cout<<r[a-1]<< " - ";
+                Roman rom;
+                std::cin>>rom;
+                r[a-1]-=rom;
+            }
         }
         else if(input==7) {
             break;

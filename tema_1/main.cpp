@@ -274,21 +274,21 @@ class Roman {
         Roman(int value) {
             this->value = value;
 
-            const char* result = int_to_rom(value);
-            this->numeral = new char[strlen(result)+1];
-            strcpy(this->numeral, result);
+            //const char* result = int_to_rom(value);
+            //this->numeral = new char[strlen(result)+1];
+            setRoman(int_to_rom(value));
         }
         Roman(const char* numeral) {
             this->value = rom_to_int(numeral);
             
-            this->numeral = new char[strlen(numeral)+1];
-            strcpy(this->numeral, numeral);
+            //this->numeral = new char[strlen(numeral)+1];
+            setRoman(numeral);
         }
         Roman(const Roman &r) {
             this->value = r.value;
 
-            this->numeral = new char[strlen(r.numeral)+1];
-            strcpy(this->numeral, r.numeral);
+            //this->numeral = new char[strlen(r.numeral)+1];
+            setRoman(r.numeral);
         }
 
         ~Roman() {
@@ -304,7 +304,8 @@ class Roman {
 
         void setRoman(const char* rom) {
             this->value = rom_to_int(rom);
-            strcpy(this->numeral, rom);
+            this->numeral = new char[strlen(rom)];
+            for(int i=0; i<strlen(rom); i++) this->numeral[i]=toupper(rom[i]);
         }
         void setValue(int val) {
             this->value = val; 
@@ -357,7 +358,7 @@ class Roman {
         }
         
         void afisare() {
-            cout << this->numeral << endl;
+            std::cout << this->numeral << endl;
         }
 
         friend std::istream& operator>>(std::istream &is, Roman &s) {
@@ -369,12 +370,8 @@ class Roman {
             return is;
         }
         friend std::ostream& operator<<(std::ostream &os, Roman &s) {
-            // if (!s.name) {
-            //     os << "Not initialized\n";
-            //     return os;
-            // }
 
-            os << s.getRoman() << '\n';
+            os << s.getRoman();
 
             return os;
         }
@@ -395,36 +392,26 @@ int main() {
 
     char *input;
     while(true) {
-        input = new char[100];
-        cin >> input;
-        if(!strcmp(input, "exit")) {
-            break;
-        } /*
-        else if(!strcmp(input, "exit")) {
-            ;
-        }
-        else if(!strcmp(input, "exit")) {
-            ;
-        }
-        else if(!strcmp(input, "exit")) {
-            ;
-        }
-        else if(!strcmp(input, "exit")) {
-            ;
-        }
-        else if(!strcmp(input, "exit")) {
-            ;
-        }
-        else if(!strcmp(input, "exit")) {
-            ;
-        }
-        else if(!strcmp(input, "exit")) {
-            ;
-        } */
-        
-    }
+        std::cout << "1: afișare" << endl
+        << "2: modificare" << endl
+        << "3: adăugare" << endl
+        << "4: ștergere" << endl
+        << "5: ieșire" << endl
+        << "> ";
 
-    cout << "e" << endl;
+        int input;
+        std::cin>>input;
+        if(input==1) {
+            int a, b;
+            std::cout<<"numere: "; std::cin>>a>>b;
+            for(int i=a-1; i<b; i++) {
+                r[i].afisare();
+            }
+        }
+        else if(input==5) {
+            break;
+        }
+    }
 
     return 0;
 }

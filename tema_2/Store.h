@@ -29,6 +29,14 @@ public:
 
     int get_quantity(std::string id);
 
+    float get_price(std::string id);
+
+    std::string get_name(std::string id);
+
+    std::vector<std::shared_ptr<Synth>> get_synths();
+
+    std::vector<std::shared_ptr<Software>> get_software();
+
     void show_inventory();
 
     void show_sales();

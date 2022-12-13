@@ -72,6 +72,44 @@ int Store::get_quantity(std::string id) {
     return -1;
 }
 
+float Store::get_price(std::string id) {
+    for (std::shared_ptr<Product> p : inventory) {
+        if(id == p->get_product_id()) {
+            return p->get_price();
+        }
+    }
+    return -1;
+}
+
+std::string Store::get_name(std::string id) {
+    for (std::shared_ptr<Product> p : inventory) {
+        if(id == p->get_product_id()) {
+            return p->get_name();
+        }
+    }
+    return "";
+}
+
+std::vector<std::shared_ptr<Synth>> Store::get_synths() {
+    std::vector<std::shared_ptr<Synth>> synths;
+    for (std::shared_ptr<Product> p : inventory) {
+        if(dynamic_cast<Synth*>(p.get())) {
+            synths.push_back(std::dynamic_pointer_cast<Synth>(p));
+        }
+    }
+    return synths;
+}
+
+std::vector<std::shared_ptr<Software>> Store::get_software() {
+    std::vector<std::shared_ptr<Software>> software;
+    for (std::shared_ptr<Product> p : inventory) {
+        if(dynamic_cast<Software*>(p.get())) {
+            software.push_back(std::dynamic_pointer_cast<Software>(p));
+        }
+    }
+    return software;
+}
+
 void Store::show_inventory() {
     for (std::shared_ptr<Product> p : inventory) {
         std::cout << *p << std::endl;

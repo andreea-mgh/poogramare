@@ -49,12 +49,18 @@ int main() {
             // Synth* s = new Synth;
             auto s = std::make_shared<Synth>();
             std::cin >> *s;
-            magazinul_meu.add_product(s);
+            if(magazinul_meu.find_product(s->get_product_id()) != -1) {
+                std::cout << "Un produs cu ID " << s->get_product_id() << " exista deja in magazin!" << std::endl;
+            }
+            else magazinul_meu.add_product(s);
         }
         else if(option==2) {
             auto s = std::make_shared<Software>();
             std::cin >> *s;
-            magazinul_meu.add_product(s);
+            if(magazinul_meu.find_product(s->get_product_id()) != -1) {
+                std::cout << "Un produs cu ID " << s->get_product_id() << " exista deja in magazin!" << std::endl;
+            }
+            else magazinul_meu.add_product(s);
         }
 
     }

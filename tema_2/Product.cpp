@@ -71,16 +71,25 @@ Product& Product::operator=(const Product& p) {
 }
 
 std::istream& operator>>(std::istream& is, Product& p) {
+
     std::cout << "Pret: ";
     is >> p.price;
     std::cout << "Cantitate: ";
     is >> p.quantity;
     std::cout << "Nume: ";
-    std::getline(is, p.name);
-    // is.getline(p.name, 100);
+
+    // is.clear();
+    // std::getline(is, p.name);
+    char* buff = new char[256];
+    // fflush(stdin);
+    is.get();
+    is.getline(buff, 256);
+    p.name = buff;
+
     std::cout << "ID: ";
-    std::getline(is, p.product_id);
-    // is.getline(p.product_id, 100);
+    // std::getline(is, p.product_id);
+    is.getline(buff, 100);
+    p.product_id = buff;
     return is;
 }
 

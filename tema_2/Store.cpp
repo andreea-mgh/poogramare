@@ -40,21 +40,36 @@ void Store::restock_product(std::string id, int q) {
     }
 }
 
-Product& Store::get_product(std::string id) {
+
+
+// const Product& Store::get_product(std::string id) const{
+//     for (std::shared_ptr<Product> p : inventory) {
+//         if(id == p->get_product_id()) {
+//             return *p;
+//         }
+//     }
+//     return -1;
+// }
+
+const int Store::find_product(std::string id) {
+    int pos = 0;
     for (std::shared_ptr<Product> p : inventory) {
+        pos++;
         if(id == p->get_product_id()) {
-            return *p;
+            return pos;
+            break;
         }
     }
+    return -1;
 }
 
 int Store::get_quantity(std::string id) {
     for (std::shared_ptr<Product> p : inventory) {
         if(id == p->get_product_id()) {
             return p->get_quantity();
-            break;
         }
     }
+    return -1;
 }
 
 void Store::show_inventory() {

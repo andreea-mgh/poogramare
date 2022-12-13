@@ -23,7 +23,9 @@ public:
 
     void restock_product(std::string id, int q);
 
-    Product& get_product(std::string id);
+    // const Product& get_product(std::string id) const;
+
+    const int find_product(std::string id);
 
     int get_quantity(std::string id);
 

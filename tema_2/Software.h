@@ -31,6 +31,8 @@ public:
 
     std::string get_category();
 
+    virtual void print_extra(std::ostream& os) const;
+
     Software& operator=(const Software& s);
 
     friend std::istream& operator>>(std::istream& is, Software& s);

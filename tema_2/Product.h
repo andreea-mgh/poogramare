@@ -34,6 +34,7 @@ public:
     virtual std::string get_product_id() const;
 
     virtual std::string get_category() = 0;
+    virtual void print_extra(std::ostream& os) const = 0;
 
     int sell(int quantity_);
     void restock(int quantity_);

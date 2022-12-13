@@ -42,6 +42,13 @@ std::string Product::get_product_id() const {
     return product_id;
 }
 
+void Product::print_extra(std::ostream& os) const {
+    os << "Pret: " << get_price() << std::endl;
+    os << "Cantitate: " << get_quantity() << std::endl;
+    os << "Nume: " << get_name() << std::endl;
+    os << "ID: " << get_product_id() << std::endl;
+}
+
 int Product::sell(int quantity_) {
     if (quantity_ > quantity) {
         std::cout << "Nu avem destule in stoc." << std::endl;
@@ -78,9 +85,6 @@ std::istream& operator>>(std::istream& is, Product& p) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Product& p) {
-    os << "Pret: " << p.price << std::endl;
-    os << "Cantitate: " << p.quantity << std::endl;
-    os << "Nume: " << p.name << std::endl;
-    os << "ID: " << p.product_id << std::endl;
+    p.print_extra(os);
     return os;
 }

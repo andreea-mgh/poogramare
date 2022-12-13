@@ -46,6 +46,16 @@ std::string Synth::get_category() {
     return "Sintetizator";
 }
 
+void Synth::print_extra(std::ostream& os) const {
+    os << "Pret: " << get_price() << std::endl;
+    os << "Cantitate: " << get_quantity() << std::endl;
+    os << "Nume: " << get_name() << std::endl;
+    os << "ID: " << get_product_id() << std::endl;
+    os << "Brand: " << get_brand() << std::endl;
+    os << "Model: " << get_model() << std::endl;
+    os << "Tip: " << get_type() << std::endl;
+}
+
 Synth& Synth::operator=(const Synth& s) {
     Product::operator=(s);
     brand = s.brand;
@@ -55,7 +65,7 @@ Synth& Synth::operator=(const Synth& s) {
 }
 
 std::istream& operator>>(std::istream& is, Synth& s) {
-    is >> dynamic_cast<Product&>(s);
+    is >> static_cast<Product&>(s);
     std::cout << "Brand: ";
     std::getline(is, s.brand);
     std::cout << "Model: ";
@@ -66,7 +76,7 @@ std::istream& operator>>(std::istream& is, Synth& s) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Synth& s) {
-    os << dynamic_cast<const Product&>(s);
+    os << static_cast<const Product&>(s);
     os << "Brand: " << s.brand << std::endl;
     os << "Model: " << s.model << std::endl;
     os << "Tip: " << s.type << std::endl;

@@ -33,6 +33,8 @@ public:
 
     std::string get_category();
 
+    virtual void print_extra(std::ostream& os) const;
+
     Synth& operator=(const Synth& s);
 
     friend std::istream& operator>>(std::istream& is, Synth& s);

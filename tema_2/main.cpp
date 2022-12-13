@@ -7,11 +7,6 @@
 int main() {
     Store magazinul_meu("moog");
 
-    // std::string boob;
-    // std::getline(std::cin, boob);
-    // std::cout<<boob;
-
-
     auto synth1 = new Synth("Sintetizator Analog Behringer TD-3-SB", "BEHTD3SB", "Behringer", "TD-3-SB", "analog", 510.30, 25);
     magazinul_meu.add_product(std::shared_ptr<Product>(synth1));
     auto synth2 = new Synth("Sintetizator Analog Behringer RD-6-BU", "BEHRD6BU", "Behringer", "RD-6-BU", "analog", 810.50, 10);
@@ -40,28 +35,29 @@ int main() {
 
 
 
-    // std::cout<< "Introduceti numarul de produse pe care doriti sa le adaugati: ";
-    // int n;
-    // std::cin >> n;
-    // for(int i=0; i<n; i++) {
-    //     int option;
-    //     std::cout << "Ce produs doriti sa adaugati?" << std::endl;
-    //     std::cout << "1. Sintetizator" << std::endl;
-    //     std::cout << "2. Software" << std::endl;
-    //     std::cout << "> "; std::cin >> option;
+    std::cout<< "Introduceti numarul de produse pe care doriti sa le adaugati: ";
+    int n;
+    std::cin >> n;
+    for(int i=0; i<n; i++) {
+        int option;
+        std::cout << "Ce produs doriti sa adaugati?" << std::endl;
+        std::cout << "1. Sintetizator" << std::endl;
+        std::cout << "2. Software" << std::endl;
+        std::cout << "> "; std::cin >> option;
 
-    //     if(option==1) {
-    //         Synth* s = new Synth;
-    //         std::cin >> *s;
-    //         magazinul_meu.add_product(std::shared_ptr<Product>(s));
-    //     }
-    //     else if(option==2) {
-    //         Software* s;
-    //         std::cin >> *s;
-    //         magazinul_meu.add_product(std::shared_ptr<Product>(s));
-    //     }
+        if(option==1) {
+            // Synth* s = new Synth;
+            auto s = std::make_shared<Synth>();
+            std::cin >> *s;
+            magazinul_meu.add_product(s);
+        }
+        else if(option==2) {
+            auto s = std::make_shared<Software>();
+            std::cin >> *s;
+            magazinul_meu.add_product(s);
+        }
 
-    // }
+    }
 
     int option=1;
     while (option != 0)

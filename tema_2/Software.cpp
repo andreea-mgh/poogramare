@@ -38,6 +38,16 @@ std::string Software::get_category() {
     return "Software";
 }
 
+void Software::print_extra (std::ostream& os) const {
+    os << "Pret: " << get_price() << std::endl;
+    os << "Cantitate: " << get_quantity() << std::endl;
+    os << "Nume: " << get_name() << std::endl;
+    os << "ID: " << get_product_id() << std::endl; 
+    os << "Developer: " << get_developer() << std::endl;
+    os << "Versiune: " << get_version() << std::endl;
+    os << "OS: " << get_os() << std::endl;
+}
+
 Software& Software::operator=(const Software& s) {
     Product::operator=(s);
     this->developer = s.developer;
@@ -47,7 +57,7 @@ Software& Software::operator=(const Software& s) {
 }
 
 std::istream& operator>>(std::istream& is, Software& s) {
-    is >> dynamic_cast<Product&>(s);
+    is >> static_cast<Product&>(s);
     std::cout<< "Developer: ";
     std::getline(is, s.developer);
     std::cout << "Versiune: ";
@@ -58,7 +68,7 @@ std::istream& operator>>(std::istream& is, Software& s) {
 }
 
 std::ostream& operator<<(std::ostream& os, Software& s) {
-    os << dynamic_cast<const Product&>(s);
+    os << static_cast<const Product&>(s);
     os << "Developer: " << s.developer << std::endl;
     os << "Versiune: " << s.version << std::endl;
     os << "OS: " << s.os << std::endl;
